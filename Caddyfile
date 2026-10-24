@@ -1,0 +1,22 @@
+# Mirrors src/_headers, which only Netlify reads.
+{
+	admin off
+}
+
+:{$PORT:8080} {
+	root * /srv
+	encode gzip
+
+	@immutable {
+		path /assets/* /osrs-assets/*.bin /osrs-assets/*.soundpack
+	}
+	header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+	@hashed path_regexp ^/[^/]+\.(png|ogg)$
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+	@daily path /osrs-assets/item-icons/* /osrs-assets/sprites/*
+	header @daily Cache-Control "public, max-age=86400"
+
+	file_server
+}

@@ -1,0 +1,6 @@
+node_modules
+dist
+public/osrs-assets
+.osrs-cache
+.verify
+.git
